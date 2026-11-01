@@ -1,0 +1,74 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "gitee2github-issue",
+	"main": "src/index.ts",
+	"compatibility_date": "2023-11-01",
+	"observability": {
+		"enabled": true
+	},
+
+	/**
+	 * D1数据库配置
+	 */
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "gitee2github_db",
+			"database_id": "4248cbee-9da8-4473-badb-a4a7b0a27b7e"
+		}
+	],
+
+	/**
+	 * Environment Variables
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+	 */
+	"vars": { 
+		"GITHUB_API_BASE_URL": "https://api.github.com"
+		// GitHub App相关配置应通过secrets设置，不应在此处硬编码
+		// GITHUB_APP_ID
+		// GITHUB_PRIVATE_KEY
+		// GITHUB_INSTALLATION_ID
+	},
+
+	/**
+	 * 静态资源绑定
+	 */
+	"assets": {
+		"directory": "public",
+		"binding": "ASSETS"
+	}
+
+	/**
+	 * Note: Use secrets to store sensitive data.
+	 * https://developers.cloudflare.com/workers/configuration/secrets/
+	 */
+
+	/**
+	 * Smart Placement
+	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+	 */
+	// "placement": { "mode": "smart" },
+
+	/**
+	 * Bindings
+	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+	 * databases, object storage, AI inference, real-time communication and more.
+	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+	 */
+
+	/**
+	 * Static Assets
+	 * https://developers.cloudflare.com/workers/static-assets/binding/
+	 */
+	// "assets": { "directory": "./public/", "binding": "ASSETS" },
+
+	/**
+	 * Service Bindings (communicate between multiple Workers)
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+	 */
+	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
+}
